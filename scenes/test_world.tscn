@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bvqerojsr66qd"]
+
+[ext_resource type="Texture2D" uid="uid://c4jjdk7qf3hxc" path="res://assets/tex/kenney_prototype-textures/PNG/Dark/texture_03.png" id="1_kyfjp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_orr8f"]
+
+[sub_resource type="Sky" id="Sky_63og4"]
+sky_material = SubResource("ProceduralSkyMaterial_orr8f")
+
+[sub_resource type="Environment" id="Environment_tsb5i"]
+background_mode = 2
+sky = SubResource("Sky_63og4")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qshva"]
+size = Vector2(500, 500)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kyfjp"]
+albedo_texture = ExtResource("1_kyfjp")
+uv1_triplanar = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tsb5i"]
+
+[node name="World" type="Node3D" unique_id=1861449297]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=213521085]
+environment = SubResource("Environment_tsb5i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1689308874]
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 3, 3)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=805714584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2126605480]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=285093139]
+mesh = SubResource("PlaneMesh_qshva")
+surface_material_override/0 = SubResource("StandardMaterial3D_kyfjp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=209266879]
+shape = SubResource("WorldBoundaryShape3D_tsb5i")
