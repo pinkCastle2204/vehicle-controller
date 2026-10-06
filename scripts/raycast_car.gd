@@ -6,23 +6,26 @@ extends RigidBody3D
 @export var accelerationCurve : Curve
 @export var tireTurnSpeed := 2.0
 @export var tireMaxTurnDegrees := 25
-
+@export var skidMarks: Array[GPUParticles3D]
 var motorInput := 0.0
 var handbrake := false
-
+var is_slipping := false
 func _physics_process(delta: float) -> void:
 	# Continuous input polling avoids missed press/release states
 	motorInput = Input.get_axis("decelerate", "accelerate")
 	handbrake = Input.is_action_pressed("handbrake")
+	if Input.is_action_just_pressed("handbrake"):
+		is_slipping = true
 
 	DebugDraw3D.draw_arrow_ray(global_position, linear_velocity, 0.5, Color.YELLOW, 0.05)
 	_basic_steering_rotation(delta)
-	
+	var id := 0
 	for wheel in wheels:
 		wheel.force_raycast_update()
 		_do_single_wheel_suspension(wheel)
 		_do_single_wheel_acceleration(wheel, delta)
-		_do_single_wheel_traction(wheel, delta)
+		_do_single_wheel_traction(wheel, delta,id)
+		id+=1
 
 func _basic_steering_rotation(delta: float) -> void:
 	var turnInput := Input.get_axis("right", "left") * tireTurnSpeed
@@ -83,7 +86,7 @@ func _do_single_wheel_acceleration(ray: RaycastWheel, delta: float) -> void:
 			apply_force(forceVector, forcePos)
 			DebugDraw3D.draw_arrow_ray(contact, forceVector / mass, 0.5, Color.BLUE, 0.05, true)
 
-func _do_single_wheel_traction(ray: RaycastWheel, delta: float) -> void:
+func _do_single_wheel_traction(ray: RaycastWheel, delta: float,idx:int) -> void:
 	if not ray.is_colliding(): 
 		return
 	
@@ -102,8 +105,19 @@ func _do_single_wheel_traction(ray: RaycastWheel, delta: float) -> void:
 	var Xtraction := 1.0
 	if ray.gripCurve:
 		Xtraction = ray.gripCurve.sample_baked(gripFactor)
+		
+	skidMarks[idx].global_position = ray.get_collision_point() + Vector3.UP*0.01
+	skidMarks[idx].look_at(skidMarks[idx].global_position+global_basis.z)
+	
+	if not handbrake and gripFactor <0.2:
+		is_slipping = false
+		skidMarks[idx].emitting = false
 	
 	if handbrake:
+		Xtraction = 0.05
+		if not skidMarks[idx].emitting:
+			skidMarks[idx].emitting = true
+	elif is_slipping:
 		Xtraction = 0.1
 	
 	# Soften response (0.4 damping) to avoid single-frame overcorrection flicker
