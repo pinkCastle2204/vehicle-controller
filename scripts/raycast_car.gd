@@ -114,11 +114,11 @@ func _do_single_wheel_traction(ray: RaycastWheel, delta: float,idx:int) -> void:
 		skidMarks[idx].emitting = false
 	
 	if handbrake:
-		Xtraction = 0.05
+		Xtraction = 0.005
 		if not skidMarks[idx].emitting:
 			skidMarks[idx].emitting = true
 	elif is_slipping:
-		Xtraction = 0.1
+		Xtraction = 0.05
 	
 	# Soften response (0.4 damping) to avoid single-frame overcorrection flicker
 	var lateralFrictionDamp := 0.4
@@ -128,7 +128,7 @@ func _do_single_wheel_traction(ray: RaycastWheel, delta: float,idx:int) -> void:
 	# 2. Longitudinal traction
 	var tireForwardDir := -ray.global_basis.z
 	var forwardVel := tireForwardDir.dot(tireVel)
-	var zTraction := 0.09
+	var zTraction := 0.05
 	var zForce := -tireForwardDir * forwardVel * zTraction * ((mass * 9.8) / 4.0)
 	
 	var forcePosition := ray.wheel.global_position - global_position
