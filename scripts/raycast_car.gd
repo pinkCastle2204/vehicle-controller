@@ -109,7 +109,7 @@ func _do_single_wheel_traction(ray: RaycastWheel, delta: float,idx:int) -> void:
 	skidMarks[idx].global_position = ray.get_collision_point() + Vector3.UP*0.01
 	skidMarks[idx].look_at(skidMarks[idx].global_position+global_basis.z)
 	
-	if not handbrake and gripFactor <0.2:
+	if not handbrake and gripFactor <0.05:
 		is_slipping = false
 		skidMarks[idx].emitting = false
 	
