@@ -268,8 +268,6 @@ draw_pass_1 = SubResource("QuadMesh_qshva")
 transform = Transform3D(0.9999832, -0.005789448, 0.00030778864, 0.0051750084, 0.915269, 0.40280998, -0.0026137568, -0.40280166, 0.91528356, -0.5831757, 4.061038, 3.94392)
 top_level = true
 script = ExtResource("9_7448y")
-joystick_sensitivity = Vector2(0.1, 0.5)
-joystick_deadzone = 0.5
 
 [node name="speedBreaker" type="Node3D" parent="." unique_id=728732696]
 transform = Transform3D(0.27646267, 0, 0.96102464, 0, 1, 0, -0.96102464, 0, 0.27646267, -27.691788, 5, 0)
