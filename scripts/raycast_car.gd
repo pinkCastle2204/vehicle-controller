@@ -16,6 +16,8 @@ func _physics_process(delta: float) -> void:
 	handbrake = Input.is_action_pressed("handbrake")
 	if Input.is_action_just_pressed("handbrake"):
 		is_slipping = true
+	if Input.is_action_just_pressed("toggle_debug"):
+		DebugDraw3D.set_debug_enabled(not DebugDraw3D.is_debug_enabled())
 
 	DebugDraw3D.draw_arrow_ray(global_position, linear_velocity, 0.5, Color.YELLOW, 0.05)
 	_basic_steering_rotation(delta)
