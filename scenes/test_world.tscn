@@ -19,6 +19,7 @@ sky_material = SubResource("ProceduralSkyMaterial_orr8f")
 [sub_resource type="Environment" id="Environment_tsb5i"]
 background_mode = 2
 sky = SubResource("Sky_63og4")
+volumetric_fog_albedo = Color(0.36220768, 0.36500832, 0.5689597, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qshva"]
 size = Vector2(500, 500)
@@ -84,7 +85,7 @@ vertex_color_use_as_albedo = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_qshva"]
 material = SubResource("StandardMaterial3D_xwrkq")
-size = Vector2(0.6, 1)
+size = Vector2(0.2, 1)
 orientation = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_63og4"]
@@ -121,7 +122,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kyfjp")
 shape = SubResource("WorldBoundaryShape3D_tsb5i")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=760127252]
-transform = Transform3D(1, -1.2363446e-07, 1.2363446e-07, -6.235704e-08, 0.4084255, 0.91279155, -1.63348e-07, -0.91279155, 0.4084255, 0, -0.043862343, -9.335398)
+transform = Transform3D(1, -1.2363446e-07, 1.2363446e-07, -6.235704e-08, 0.4084255, 0.91279155, -1.63348e-07, -0.91279155, 0.4084255, 0, -0.14603758, -9.335398)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=247643826]
 mesh = SubResource("BoxMesh_63og4")
@@ -139,7 +140,7 @@ accelerationCurve = SubResource("Curve_dvny0")
 skidMarks = [NodePath("skidparticles/GPUParticles3D"), NodePath("skidparticles/GPUParticles3D2"), NodePath("skidparticles/GPUParticles3D3"), NodePath("skidparticles/GPUParticles3D4")]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="carMesh" unique_id=643889763]
-transform = Transform3D(-1.2049192, 0.013952257, 1.3310637e-06, 0.013952257, 1.2049195, 0.0002452698, 1.5087426e-06, 0.0002452687, -1.2049998, -0.0039613135, -0.68422306, -6.9636866e-05)
+transform = Transform3D(-1.1549224, 0.0133733265, 1.2758828e-06, 0.013373325, 1.1549225, 0.00023509243, 1.4461984e-06, 0.00023509146, -1.1549999, -0.0038370546, -0.66276026, -6.7452434e-05)
 shape = SubResource("ConvexPolygonShape3D_nrstc")
 
 [node name="body" parent="carMesh" unique_id=2020156037 instance=ExtResource("4_nrstc")]
@@ -230,7 +231,7 @@ mesh = SubResource("CylinderMesh_qshva")
 surface_material_override/0 = SubResource("StandardMaterial3D_3263u")
 
 [node name="skidparticles" type="Node3D" parent="carMesh" unique_id=1835161622]
-transform = Transform3D(1, 1.0061285e-10, 0, 5.6616045e-10, 1.0000001, 7.275958e-12, 2.910383e-11, 0, 1, -9.825453e-06, -3.0994415e-06, 0.031862255)
+transform = Transform3D(1, 1.0061285e-10, 0, 1.0318217e-09, 1.0000001, 1.4551915e-11, 5.820766e-11, 0, 1, -0.0020274632, -0.00065755844, 6.574688)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="carMesh/skidparticles" unique_id=562853801]
 transform = Transform3D(1, 1.0319425e-09, 0, 1.0049561e-10, 1.0000001, 1.4551915e-11, 0, -1.4551915e-11, 1, -0.0011489382, -0.00037288666, 3.7257938)
